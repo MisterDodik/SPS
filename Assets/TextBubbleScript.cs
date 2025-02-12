@@ -9,6 +9,8 @@ public class TextBubbleScript : MonoBehaviour
 
     Transform createdBubble;
     TextMeshPro textChild;
+
+    [SerializeField] Transform player;
     private void Awake()
     {
         if (instance == null)
@@ -41,10 +43,19 @@ public class TextBubbleScript : MonoBehaviour
         textChild.text=text;
     }
 
-
     public void DestroyBubble()
     {
         if (createdBubble != null && createdBubble.gameObject.activeSelf)     
             createdBubble.gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (createdBubble.gameObject.activeSelf)
+        {
+            Vector3 direction = player.position - createdBubble.position;
+            Quaternion rotation = Quaternion.LookRotation(-direction.normalized, Vector3.up);
+            createdBubble.localRotation = rotation;
+        }
     }
 }
