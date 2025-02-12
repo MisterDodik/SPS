@@ -16,15 +16,27 @@ public class PlayerController : MonoBehaviour
 
     //Crosshair
     public LayerMask layerMask;
-    public GameObject crosshairGO;
-    RawImage crosshairImage;
+    [SerializeField] private RawImage crosshairImage;
+
+    private bool isSprinting = false;
+    [SerializeField] private float sprintingMultiplier;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        ControlsManager.Instance.OnSprintPerformed += ControlsManager_OnSprintPerformed;
+        ControlsManager.Instance.OnSprintCanceled += ControlsManager_OnSprintCanceled;
         rb = GetComponent<Rigidbody>();
         rb.linearDamping= m_groundDrag;
+    }
 
-        crosshairImage = crosshairGO.GetComponent<RawImage>();
+    private void ControlsManager_OnSprintCanceled(object sender, System.EventArgs e)
+    {
+        isSprinting = false;
+    }
+
+    private void ControlsManager_OnSprintPerformed(object sender, System.EventArgs e)
+    {
+        isSprinting = true;
     }
 
     private void Update()
@@ -44,7 +56,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 move = cameraTransform.forward * m_moveInput.y + cameraTransform.right * m_moveInput.x;
         move.y = 0;
-        rb.AddForce(move.normalized * m_speed * Time.deltaTime, ForceMode.VelocityChange);
+        rb.AddForce(move.normalized * m_speed * (isSprinting ? sprintingMultiplier : 1) * Time.deltaTime, ForceMode.VelocityChange);
     }
     public void onMove(Vector2 input)
     {
