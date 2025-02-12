@@ -11,7 +11,7 @@ public class ControlsManager : Singleton<ControlsManager>
 
 
     private InputSystem_Actions playerInput;
-    private InputSystem_Actions.PlayerActions playerActions;
+    public InputSystem_Actions.PlayerActions playerActions;
 
     [SerializeField] private PlayerController playerController;
     private void Awake()
@@ -27,7 +27,6 @@ public class ControlsManager : Singleton<ControlsManager>
 
         playerActions.Interact.started += Interact_started;
     }
-
     private void Interact_started(InputAction.CallbackContext obj)
     {
         OnInteract?.Invoke(this, EventArgs.Empty);
@@ -53,6 +52,10 @@ public class ControlsManager : Singleton<ControlsManager>
         playerController.onMove(playerActions.Move.ReadValue<Vector2>());
     }
 
+    public string getKeyBinding(InputAction action)
+    {       
+        return (action.GetBindingDisplayString(0, InputBinding.DisplayStringOptions.DontIncludeInteractions));
+    }
     private void OnEnable()
     {
         playerActions.Enable();

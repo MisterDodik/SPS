@@ -1,19 +1,24 @@
 using System;
-using UnityEditor.Animations;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerInteract : MonoBehaviour
 {
-    public LayerMask layerMask;
+    [SerializeField] LayerMask layerMask;
+    RaycastHit hit;
 
     public Transform cameraTransform;
 
     [SerializeField] private RawImage crosshairImage;
+
+    private string interactAction;
+
     private void Start()
     {
         ControlsManager.Instance.OnInteract += Instance_OnInteractPerformed;
+
+        //---This should be changed later, when we add key bindings settings, so that it gets updated
+        interactAction = ControlsManager.Instance.getKeyBinding(ControlsManager.Instance.playerActions.Interact);
     }
 
     private void Instance_OnInteractPerformed(object sender, EventArgs e)
@@ -22,27 +27,29 @@ public class PlayerInteract : MonoBehaviour
     }
     private void Update()
     {
-        RaycastHit hit;
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 2, layerMask))
         {
             crosshairImage.color = Color.black;
-            TextBubbleScript.instance.CreateBubble(hit.transform, new Vector3(-0.8f, 0, 0), "Press E to interact");
+            TextBubbleScript.instance.CreateBubble(hit.transform, new Vector3(-0.8f, 0, 0), GetText());
         }
         else
         {
+            hit.normal = Vector3.zero;  //nullifing
+
             crosshairImage.color = Color.white;
             TextBubbleScript.instance.DestroyBubble();
         }
     }
     public void FindInteractable()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 2, layerMask))
+        if (hit.normal != Vector3.zero && hit.collider.gameObject.TryGetComponent(out IInteract interactable))
         {
-            if (hit.collider.gameObject.TryGetComponent(out IInteract interactable))
-            {
-                interactable.Interact();
-            }
+            interactable.Interact();
         }
+    }
+
+    string GetText()
+    {
+        return "Press " + interactAction + " to interact.";
     }
 }

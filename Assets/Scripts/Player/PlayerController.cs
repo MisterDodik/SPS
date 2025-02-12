@@ -53,15 +53,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        //if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, 2, layerMask))
-        //{
-        //    crosshairImage.color = Color.black;
-        //}
-        //else
-        //{
-        //    crosshairImage.color = Color.white;
-        //}
-
         Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.y);
 
         if (flatVel.magnitude > m_speed)

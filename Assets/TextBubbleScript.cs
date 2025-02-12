@@ -8,34 +8,43 @@ public class TextBubbleScript : MonoBehaviour
     public static TextBubbleScript instance;
 
     Transform createdBubble;
+    TextMeshPro textChild;
     private void Awake()
     {
         if (instance == null)
             instance = this;
+
+        createdBubble = Instantiate(bubblePrefab).transform;
+
+        createdBubble.gameObject.SetActive(true);  
+        textChild = createdBubble.GetChild(0).GetComponent<TextMeshPro>();
+        textChild.ForceMeshUpdate();            // Prevents lag spike later on
+        textChild.text = "";  
+        createdBubble.gameObject.SetActive(false);
     }
 
     public void CreateBubble(Transform parent, Vector3 localPosition, string text)
     {
-        if (parent == null)
+        if (parent == null || createdBubble.gameObject.activeSelf)
             return;
 
-        if (createdBubble == null)                      //minimizing instantiate calls to improve performance
+        if (createdBubble == null)                      // Minimizing instantiate calls to improve performance
             createdBubble = Instantiate(bubblePrefab).transform;
         else
         {
             createdBubble.gameObject.SetActive(true);
-            createdBubble.parent = parent;
         }
 
+        createdBubble.parent = parent;
         createdBubble.localPosition = localPosition;
 
-        createdBubble.GetChild(0).GetComponent<TextMeshPro>().text=text;
+        textChild.text=text;
     }
 
 
     public void DestroyBubble()
     {
-        if (createdBubble != null)
+        if (createdBubble != null && createdBubble.gameObject.activeSelf)     
             createdBubble.gameObject.SetActive(false);
     }
 }
