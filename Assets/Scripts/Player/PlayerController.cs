@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask layerMask;
     [SerializeField] private RawImage crosshairImage;
 
+    private bool isSprinting = false;
+    [SerializeField] private float sprintingMultiplier;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -64,25 +66,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             crosshairImage.color = Color.white;
-        }
-
-        Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.y);
-
-        if (flatVel.magnitude > m_speed)
-        {
-            Vector3 limitedVel = flatVel.normalized * m_speed;
-            rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
-        }
-
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, groundMask);
-        if (isGrounded)
-        {
-            rb.linearDamping = m_groundDrag;
-        }
-        else
-        {
-            rb.linearDamping = 0f;
-            rb.AddForce(Vector3.down * fallForce, ForceMode.Acceleration);
         }
     }
 
