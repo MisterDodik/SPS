@@ -26,10 +26,6 @@ public class PlayerController : MonoBehaviour
     //Camera rotation
     public Transform cameraTransform;
 
-    //Crosshair
-    public LayerMask layerMask;
-    [SerializeField] private RawImage crosshairImage;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -57,14 +53,14 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, 2, layerMask))
-        {
-            crosshairImage.color = Color.black;
-        }
-        else
-        {
-            crosshairImage.color = Color.white;
-        }
+        //if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, 2, layerMask))
+        //{
+        //    crosshairImage.color = Color.black;
+        //}
+        //else
+        //{
+        //    crosshairImage.color = Color.white;
+        //}
 
         Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.y);
 

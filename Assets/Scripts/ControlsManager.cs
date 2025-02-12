@@ -7,6 +7,8 @@ public class ControlsManager : Singleton<ControlsManager>
     public event EventHandler OnSprintPerformed;
     public event EventHandler OnSprintCanceled;
     public event EventHandler OnJump;
+    public event EventHandler OnInteract;
+
 
     private InputSystem_Actions playerInput;
     private InputSystem_Actions.PlayerActions playerActions;
@@ -23,7 +25,12 @@ public class ControlsManager : Singleton<ControlsManager>
         playerActions.Sprint.canceled += Sprint_canceled;
         playerActions.Jump.performed += Jump_performed;
 
-        //playerActions.MoveFlashlight.performed += ctx => flashlightController.onMove(ctx.ReadValue<Vector2>());
+        playerActions.Interact.started += Interact_started;
+    }
+
+    private void Interact_started(InputAction.CallbackContext obj)
+    {
+        OnInteract?.Invoke(this, EventArgs.Empty);
     }
 
     private void Jump_performed(InputAction.CallbackContext obj)
