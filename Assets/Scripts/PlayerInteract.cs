@@ -22,13 +22,16 @@ public class PlayerInteract : MonoBehaviour
     }
     private void Update()
     {
-        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, 2, layerMask))
+        RaycastHit hit;
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 2, layerMask))
         {
             crosshairImage.color = Color.black;
+            TextBubbleScript.instance.CreateBubble(hit.transform, new Vector3(-0.8f, 0, 0), "Press E to interact");
         }
         else
         {
             crosshairImage.color = Color.white;
+            TextBubbleScript.instance.DestroyBubble();
         }
     }
     public void FindInteractable()
