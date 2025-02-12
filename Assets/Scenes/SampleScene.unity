@@ -774,14 +774,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61b9b1e1e5256a548a894a1e5b53e3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_speed: 50
-  m_groundDrag: 10
+  rb: {fileID: 677678792}
+  m_speed: 40
+  m_groundDrag: 5
+  sprintingMultiplier: 2
+  jumpForce: 15
+  airMultiplier: 0.4
+  fallForce: 10
+  playerHeight: 2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 128
   cameraTransform: {fileID: 330585546}
   layerMask:
     serializedVersion: 2
     m_Bits: 64
   crosshairImage: {fileID: 819542365}
-  sprintingMultiplier: 3
 --- !u!54 &677678792
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -791,7 +799,7 @@ Rigidbody:
   m_GameObject: {fileID: 677678788}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 10
+  m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -808,7 +816,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &763280665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1052,7 +1060,7 @@ GameObject:
   - component: {fileID: 1339117692}
   - component: {fileID: 1339117691}
   - component: {fileID: 1339117690}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1160,7 +1168,7 @@ GameObject:
   - component: {fileID: 1372110820}
   - component: {fileID: 1372110819}
   - component: {fileID: 1372110818}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
