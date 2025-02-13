@@ -688,6 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bubblePrefab: {fileID: 7066439934991621349, guid: 27fa4405baf6ad04980217fa79723db3, type: 3}
+  player: {fileID: 677678790}
 --- !u!1 &677678788
 GameObject:
   m_ObjectHideFlags: 0

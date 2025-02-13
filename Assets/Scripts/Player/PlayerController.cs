@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
 
     private void ConstrolsManager_OnJump(object sender, System.EventArgs e)
     {
+        if (!isGrounded)
+            return;
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
