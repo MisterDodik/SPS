@@ -15,13 +15,13 @@ public class PlayerInteract : MonoBehaviour
 
     private void Start()
     {
-        ControlsManager.Instance.OnInteract += Instance_OnInteractPerformed;
+        ControlsManager.Instance.OnInteract += ControlsManager_OnInteractPerformed;
 
         //---This should be changed later, when we add key bindings settings, so that it gets updated
         interactAction = ControlsManager.Instance.getKeyBinding(ControlsManager.Instance.playerActions.Interact);
     }
 
-    private void Instance_OnInteractPerformed(object sender, EventArgs e)
+    private void ControlsManager_OnInteractPerformed(object sender, EventArgs e)
     {
         FindInteractable();
     }
@@ -42,9 +42,9 @@ public class PlayerInteract : MonoBehaviour
     }
     public void FindInteractable()
     {
-        if (hit.normal != Vector3.zero && hit.collider.gameObject.TryGetComponent(out IInteract interactable))
+        if (hit.normal != Vector3.zero && hit.collider.gameObject.TryGetComponent(out IInteractable interactable))
         {
-            interactable.Interact();
+            interactable.Interact(transform.position);
         }
     }
 
