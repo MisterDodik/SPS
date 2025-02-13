@@ -27,7 +27,7 @@ public class PlayerInteract : MonoBehaviour
     }
     private void Update()
     {
-        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 3, layerMask))
+        if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 2.5f, layerMask))
         {
             crosshairImage.color = Color.black;
             TextBubbleScript.instance.CreateBubble(hit.transform, new Vector3(0, 1.5f, 0), GetText());
