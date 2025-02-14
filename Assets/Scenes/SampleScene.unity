@@ -815,6 +815,7 @@ MonoBehaviour:
   jumpForce: 15
   airMultiplier: 0.4
   fallForce: 10
+  staminaUsage: 0.2
   playerHeight: 2
   groundMask:
     serializedVersion: 2
@@ -2249,7 +2250,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 1
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -2610,8 +2611,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1938984175}
     m_Modifications:
+    - target: {fileID: 630095373898353156, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 7.509094
+      objectReference: {fileID: 0}
     - target: {fileID: 972470392208578346, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 972470392208578346, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -7.3771973
+      objectReference: {fileID: 0}
+    - target: {fileID: 2553947882563077765, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
+      propertyPath: m_Interactable
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3751253298917755348, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
@@ -2697,6 +2710,14 @@ PrefabInstance:
     - target: {fileID: 6274512012230386885, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
       propertyPath: m_Name
       value: Canvas - Gameplay
+      objectReference: {fileID: 0}
+    - target: {fileID: 7012044547082177792, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7012044547082177792, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

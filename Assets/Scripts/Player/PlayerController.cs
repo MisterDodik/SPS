@@ -1,3 +1,4 @@
+using Unity.AppUI.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private float airMultiplier;
     [SerializeField] private float fallForce;
+    [SerializeField] private float staminaUsage=0.2f;
+    private Slider staminaSlider;
 
     private bool isSprinting = false;
     private Vector2 m_moveInput;
@@ -32,6 +35,9 @@ public class PlayerController : MonoBehaviour
         ControlsManager.Instance.OnSprintPerformed += ControlsManager_OnSprintPerformed;
         ControlsManager.Instance.OnSprintCanceled += ControlsManager_OnSprintCanceled;
         ControlsManager.Instance.OnJump += ConstrolsManager_OnJump;
+
+        //print(UIManager.Instance.GetUI<CanvasGameplay>().staminaSlider);
+        staminaSlider = UIManager.Instance.GetUI<CanvasGameplay>().GetStaminaSlider();
     }
 
     private void ConstrolsManager_OnJump(object sender, System.EventArgs e)
@@ -62,6 +68,20 @@ public class PlayerController : MonoBehaviour
             Vector3 limitedVel = flatVel.normalized * m_speed;
             rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
         }
+
+        //---Is moving and sprinting
+        if(flatVel.magnitude>0 && isSprinting)
+        {
+            staminaSlider.value -= staminaUsage * Time.deltaTime;
+        }
+        else
+        {
+            staminaSlider.value += staminaUsage * Time.deltaTime*2;     // Stamina regen
+        }
+
+        if (staminaSlider.value == 0)
+            isSprinting = false;
+
 
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, groundMask);
         if (isGrounded)
