@@ -144,7 +144,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 7.5091, y: 0}
+  m_AnchoredPosition: {x: 7.509094, y: 0}
   m_SizeDelta: {x: -4.9818, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3691831682640516836
@@ -317,7 +317,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -7.3772125, y: -4.2180996}
+  m_AnchoredPosition: {x: -7.3771973, y: -4.2180996}
   m_SizeDelta: {x: 5.2459, y: -8.4361}
   m_Pivot: {x: 0.49999997, y: 0.49999997}
 --- !u!222 &1146647631167067723
@@ -435,7 +435,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 8646943274686513461}
   m_FillRect: {fileID: 0}
   m_HandleRect: {fileID: 972470392208578346}
@@ -534,7 +534,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &7814525606584025268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -565,8 +565,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyOnClose: 0
-  staminaSlider: {fileID: 8457258657024026901}
   suspiciousSlider: {fileID: 2553947882563077765}
+  staminaSlider: {fileID: 8457258657024026901}
+  player: {fileID: 0}
+  moneyText: {fileID: 6295512422138277882}
 --- !u!1 &6338161899545258463
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,9 +659,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  staminaSlider: {fileID: 0}
-  player: {fileID: 0}
-  moneyText: {fileID: 0}
 --- !u!1 &6810667845486399279
 GameObject:
   m_ObjectHideFlags: 0

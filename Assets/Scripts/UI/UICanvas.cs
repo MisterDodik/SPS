@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class UICanvas : MonoBehaviour
 {
-    [SerializeField] private bool destroyOnClose = false;
     private void Awake()
     {
         RectTransform rectTransform = GetComponent<RectTransform>();
@@ -35,14 +34,7 @@ public class UICanvas : MonoBehaviour
     }
     public virtual void CloseImmediate()
     {
-        if (destroyOnClose)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            gameObject.SetActive(false);
-        }
+        gameObject.SetActive(false);
     }
 
 }

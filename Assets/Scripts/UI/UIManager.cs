@@ -4,25 +4,32 @@ using UnityEngine;
 public class UIManager : Singleton<UIManager>
 {
     Dictionary<System.Type, UICanvas> canvases = new Dictionary<System.Type, UICanvas>();
-    Dictionary<System.Type, UICanvas> canvasPrefabs = new Dictionary<System.Type, UICanvas>();
     [SerializeField] private Transform parent;
+
     private void Awake()
     {
-        UICanvas[] prefabs = Resources.LoadAll<UICanvas>("UI/");
-        for (int i = 0; i < prefabs.Length; i++)
+        // Find all UICanvas components in the scene and cache them
+        UICanvas[] uiCanvases = FindObjectsByType<UICanvas>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (int i = 0; i < uiCanvases.Length; i++)
         {
-            canvasPrefabs.Add(prefabs[i].GetType(), prefabs[i]);
+            canvases.Add(uiCanvases[i].GetType(), uiCanvases[i]);
+            uiCanvases[i].transform.SetParent(parent);
         }
     }
+
     public T Open<T>() where T : UICanvas
     {
         T canvas = GetUI<T>();
 
-        canvas.Setup();
-        canvas.Open();
+        if (canvas != null)
+        {
+            canvas.Setup();
+            canvas.Open();
+        }
 
         return canvas;
     }
+
     public void Close<T>(float time) where T : UICanvas
     {
         if (IsOpened<T>())
@@ -30,6 +37,7 @@ public class UIManager : Singleton<UIManager>
             canvases[typeof(T)].Close(time);
         }
     }
+
     public void CloseImmediate<T>() where T : UICanvas
     {
         if (IsOpened<T>())
@@ -37,28 +45,28 @@ public class UIManager : Singleton<UIManager>
             canvases[typeof(T)].CloseImmediate();
         }
     }
+
     public bool IsLoaded<T>() where T : UICanvas
     {
         return canvases.ContainsKey(typeof(T)) && canvases[typeof(T)] != null;
     }
+
     public bool IsOpened<T>() where T : UICanvas
     {
         return IsLoaded<T>() && canvases[typeof(T)].gameObject.activeSelf;
     }
+
     public T GetUI<T>() where T : UICanvas
     {
-        if (!IsLoaded<T>())
+        if (IsLoaded<T>())
         {
-            T prefab = GetUIPrefab<T>();
-            T canvas = Instantiate(prefab, parent);
-            canvases[typeof(T)] = canvas;
+            return canvases[typeof(T)] as T;
         }
-        return canvases[typeof(T)] as T;
+
+        Debug.LogWarning($"UI Canvas of type {typeof(T)} not found in the scene.");
+        return null;
     }
-    private T GetUIPrefab<T>() where T : UICanvas
-    {
-        return canvasPrefabs[typeof(T)] as T;
-    }
+
     public void CloseAll()
     {
         foreach (var canvas in canvases)
