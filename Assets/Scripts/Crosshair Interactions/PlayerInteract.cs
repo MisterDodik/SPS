@@ -44,7 +44,7 @@ public class PlayerInteract : MonoBehaviour
     {
         if (hit.normal != Vector3.zero && hit.collider.gameObject.TryGetComponent(out IInteractable interactable))
         {
-            interactable.Interact(transform.position);
+            interactable.Interact(GetComponent<Player>());
         }
     }
 

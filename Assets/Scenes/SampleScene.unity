@@ -748,6 +748,7 @@ GameObject:
   - component: {fileID: 677678792}
   - component: {fileID: 677678791}
   - component: {fileID: 677678793}
+  - component: {fileID: 677678794}
   m_Layer: 0
   m_Name: 'Player '
   m_TagString: Untagged
@@ -865,6 +866,18 @@ MonoBehaviour:
     m_Bits: 64
   cameraTransform: {fileID: 330585546}
   crosshairImage: {fileID: 819542365}
+--- !u!114 &677678794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677678788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e051b25b078ec574a8c5a23f31f654fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &763280665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1864,6 +1877,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1608321154 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6295512422138277882, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
+  m_PrefabInstance: {fileID: 4824403352190325769}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1738649842
 GameObject:
   m_ObjectHideFlags: 0
@@ -2707,6 +2731,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4225459351994689933, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6274512012230386885, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
       propertyPath: m_Name
       value: Canvas - Gameplay
@@ -2719,6 +2747,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8098041935522937660, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 677678794}
+    - target: {fileID: 8098041935522937660, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
+      propertyPath: moneyText
+      value: 
+      objectReference: {fileID: 1608321154}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
