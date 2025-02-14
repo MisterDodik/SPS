@@ -53,11 +53,9 @@ public class TextBubbleScript : MonoBehaviour
     {
         if (createdBubble.gameObject.activeSelf)
         {
-            Vector3 direction = player.position - createdBubble.position;
-            Quaternion rotation = Quaternion.LookRotation(-direction.normalized, Vector3.up);
-            createdBubble.localRotation = rotation;
-
-            createdBubble.localEulerAngles -= new Vector3(0, createdBubble.parent.localEulerAngles.y, 0);
+            Vector3 direction = createdBubble.position - player.position;
+            direction.y = 0;
+            createdBubble.rotation = Quaternion.LookRotation(direction);
         }
     }
 }

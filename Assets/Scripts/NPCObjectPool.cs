@@ -18,6 +18,9 @@ public class NPCObjectPool : MonoBehaviour
 
     void Start()
     {
+        if (prefab == null)
+            return;
+
         for (int i = 0; i < poolSize; i++)
         {
             GameObject obj = Instantiate(prefab);
