@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Singleton<Player>
 {
     public event EventHandler<OnMoneyChangedEventArgs> OnMoneyChanged;
     public class OnMoneyChangedEventArgs : EventArgs

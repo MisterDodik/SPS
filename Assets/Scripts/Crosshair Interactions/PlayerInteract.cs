@@ -38,6 +38,7 @@ public class PlayerInteract : MonoBehaviour
 
             crosshairImage.color = Color.white;
             TextBubbleScript.instance.DestroyBubble();
+            PickPocket.Instance.EndEvent();
         }
     }
     public void FindInteractable()

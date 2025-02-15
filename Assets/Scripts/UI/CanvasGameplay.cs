@@ -13,6 +13,10 @@ public class CanvasGameplay : UICanvas
     {
         return staminaSlider;
     }
+    public Slider GetSuspicionSlider()
+    {
+        return suspiciousSlider;
+    }
     private void Start()
     {
         player.OnMoneyChanged += Player_OnMoneyChanged;
