@@ -12,12 +12,12 @@ public class NPC_Interact : MonoBehaviour, IInteractable
         if (dotProduct < 0)
         {
             Debug.Log("Player is interacting BEHIND the NPC!");
-            PickPocket.Instance.StartTheEvent(1);
+            ScamManager.Instance.StartScam(ScamType.Pickpocket, 1);
         }
         else
         {
             Debug.Log("Player is interacting IN FRONT OF the NPC");
-            PickPocket.Instance.StartTheEvent(1.2f);
+            ScamManager.Instance.StartScam(ScamType.Pickpocket, 1.2f);
         }
     }
 }

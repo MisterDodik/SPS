@@ -26,8 +26,19 @@ public class PickPocket : Singleton<PickPocket>
         suspicionMeter = UIManager.Instance.GetUI<CanvasGameplay>().GetSuspicionSlider();
 
         innerCircleSize = innerCircle.rectTransform.sizeDelta.x;
+
+        ScamManager.Instance.OnScamStarted += HandleScamEvent;
     }
-    public void StartTheEvent(float npc_facing)
+
+    private void HandleScamEvent(ScamType scamType, float npcFacing)
+    {
+        if (scamType == ScamType.Pickpocket)
+        {
+            StartTheEvent(npcFacing);
+        }
+    }
+
+    void StartTheEvent(float npc_facing)
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
@@ -45,12 +56,19 @@ public class PickPocket : Singleton<PickPocket>
 
     private void Update()
     {
-        if (outerCircleSize > 0 && isShrinking)
+        if (isShrinking)
         {
-            outerCircleSize -= Time.deltaTime * difficultyConstant * difficultyLevel;
+            if (outerCircleSize > 0)
+            {
+                outerCircleSize -= Time.deltaTime * difficultyConstant * difficultyLevel;
 
-            outerCircle.rectTransform.sizeDelta = new Vector2(outerCircleSize, outerCircleSize);
-        }
+                outerCircle.rectTransform.sizeDelta = new Vector2(outerCircleSize, outerCircleSize);
+            }
+            else
+            {
+                ButtonPressed();
+            }
+        }       
     }
 
     public void ButtonPressed()
