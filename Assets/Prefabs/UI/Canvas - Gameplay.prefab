@@ -564,7 +564,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d2018baffa45cd40b81c8171b1f1d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyOnClose: 0
   suspiciousSlider: {fileID: 2553947882563077765}
   staminaSlider: {fileID: 8457258657024026901}
   player: {fileID: 0}
@@ -821,7 +820,7 @@ GameObject:
   - component: {fileID: 2346147426188627984}
   - component: {fileID: 2057508309332153642}
   m_Layer: 5
-  m_Name: Inned Circle
+  m_Name: Inner Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
