@@ -8,7 +8,7 @@ public class ControlsManager : Singleton<ControlsManager>
     public event EventHandler OnSprintCanceled;
     public event EventHandler OnJump;
     public event EventHandler OnInteract;
-
+    public event EventHandler OnInventory;
 
     private InputSystem_Actions playerInput;
     public InputSystem_Actions.PlayerActions playerActions;
@@ -26,7 +26,14 @@ public class ControlsManager : Singleton<ControlsManager>
         playerActions.Jump.performed += Jump_performed;
 
         playerActions.Interact.started += Interact_started;
+        playerActions.Inventory.performed += Inventory_performed;
     }
+
+    private void Inventory_performed(InputAction.CallbackContext obj)
+    {
+        OnInventory?.Invoke(this, EventArgs.Empty);
+    }
+
     private void Interact_started(InputAction.CallbackContext obj)
     {
         OnInteract?.Invoke(this, EventArgs.Empty);

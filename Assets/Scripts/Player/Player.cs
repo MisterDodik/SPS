@@ -9,6 +9,7 @@ public class Player : Singleton<Player>
         public float money;
     }
     private float currentMoney;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.M))
@@ -24,4 +25,6 @@ public class Player : Singleton<Player>
             money = currentMoney,
         });
     }
+
+
 }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,8 +21,16 @@ public class PickPocket : Singleton<PickPocket>
 
     bool isShrinking = true;
 
+
+    List<Item> possibleRewards = new List<Item>();
+    [SerializeField] public GameObject stolenItems;
+    Animator stolenItemsAnimator;
+
     private void Start()
     {
+        possibleRewards = ItemManager.Instance.items;
+        stolenItemsAnimator = stolenItems.GetComponent<Animator>();
+
         isShrinking = false;
         canvas.SetActive(false);
         suspicionMeter = UIManager.Instance.GetUI<CanvasGameplay>().GetSuspicionSlider();
@@ -98,11 +108,31 @@ public class PickPocket : Singleton<PickPocket>
     //---This can be used to give the player a random item from a list, but for now it only gives random amount of cash
     void getItems()
     {
+        Item item = possibleRewards[Random.Range(0, possibleRewards.Count)];
+
+        if (item is not CashItem)
+        {
+            InventorySystem.Instance.AddItem(item, +1);
+            showStolenItem(item, 1);
+            return;
+        }
+
         float moneyAmount = Random.Range(15, 50) / difficultyLevel;        // dividing by difficultyLevel because that shows how often the scam was perfomed lately
         moneyAmount = (Mathf.Round(moneyAmount * 100)) / 100;    //rounding to 2 decimal places
+        showStolenItem(item, moneyAmount);
 
         Player.Instance.ChangeMoney(moneyAmount);       
     }
+
+    //---This shows an animation in the bottom left corner showing the stolen item
+    void showStolenItem(Item item, float amount)
+    {
+        stolenItems.GetComponentInChildren<Image>().sprite = item.sprite;
+        stolenItems.transform.GetComponentInChildren<TextMeshProUGUI>().text = "+" + amount.ToString() + " " + item.name;
+
+        stolenItemsAnimator.SetTrigger("stolen");
+    }
+
 
     //---This can be called from anywhere, when the same scam is performed a lot of times repetitively 
     public void increaseDifficulty(float difficulty)

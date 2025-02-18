@@ -9,6 +9,9 @@ public class CanvasGameplay : UICanvas
     [SerializeField] private Player player;
     [SerializeField] private TextMeshProUGUI moneyText;
 
+    [SerializeField] private GameObject Inventory;
+    [SerializeField] private GameObject InventoryContent;
+
     public Slider GetStaminaSlider()
     {
         return staminaSlider;
@@ -17,9 +20,20 @@ public class CanvasGameplay : UICanvas
     {
         return suspiciousSlider;
     }
+    public GameObject GetInventoryObject()
+    {
+        return Inventory;
+    }
+    public GameObject GetInventoryContent()
+    {
+        return InventoryContent;
+    }
+
     private void Start()
     {
         player.OnMoneyChanged += Player_OnMoneyChanged;
+
+        Inventory.SetActive(false);
     }
 
     private void Player_OnMoneyChanged(object sender, Player.OnMoneyChangedEventArgs e)
