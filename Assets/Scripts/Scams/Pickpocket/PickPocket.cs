@@ -1,66 +1,50 @@
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PickPocket : Singleton<PickPocket>
+public class PickPocket : ScamBase
 {
-    [SerializeField] GameObject canvas;
+    [SerializeField] new GameObject canvas;
 
-    [SerializeField] Image outerCircle;
-    [SerializeField] Image innerCircle;
+    [SerializeField] private Image outerCircle;
+    [SerializeField] private Image innerCircle;
     private float outerCircleSize;
     private float innerCircleSize;
 
-    Slider suspicionMeter;
-
-    [SerializeField] private float npcFacingMultiplier = 1;     // It's better to approach npc from behind
-    
+    private bool isShrinking = false;
     private float difficultyConstant = 120;
-    [SerializeField] private float difficultyLevel;             // The more the same scam is performed the more difficult the scam gets
-
-    bool isShrinking = true;
+    private float npcFacingMultiplier = 1;
 
 
-    List<Item> possibleRewards = new List<Item>();
-    [SerializeField] public GameObject stolenItems;
-    Animator stolenItemsAnimator;
-
-    private void Start()
+    protected override void Start()
     {
-        possibleRewards = ItemManager.Instance.items;
-        stolenItemsAnimator = stolenItems.GetComponent<Animator>();
+        base.Start();
+
+        canvas.SetActive(false);
 
         isShrinking = false;
-        canvas.SetActive(false);
-        suspicionMeter = UIManager.Instance.GetUI<CanvasGameplay>().GetSuspicionSlider();
 
         innerCircleSize = innerCircle.rectTransform.sizeDelta.x;
-
-        ScamManager.Instance.OnScamStarted += HandleScamEvent;
     }
 
-    private void HandleScamEvent(ScamType scamType, float npcFacing)
+    protected override void HandleScamEvent(ScamType scamType, float npcFacing)
     {
         if (scamType == ScamType.Pickpocket)
         {
-            StartTheEvent(npcFacing);
+            npcFacingMultiplier = npcFacing;
+            StartTheEvent(npcFacing, canvas);
         }
     }
 
-    void StartTheEvent(float npc_facing)
+    protected override void StartTheEvent(float npc_facing, GameObject _canvas)
     {
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
+        base.StartTheEvent(npc_facing, _canvas);
 
         npcFacingMultiplier = npc_facing;
 
-        canvas.SetActive(true);
         outerCircle.gameObject.SetActive(true);
 
         outerCircleSize = 500;
         outerCircle.rectTransform.sizeDelta = new Vector2(500, 500);
-
         isShrinking = true;
     }
 
@@ -99,14 +83,11 @@ public class PickPocket : Singleton<PickPocket>
         else
             suspicionMeter.value += difficultyLevel * npcFacingMultiplier * distance / 10;
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
-        canvas.SetActive(false);
+        EndEvent();
     }
     
     //---This can be used to give the player a random item from a list, but for now it only gives random amount of cash
-    void getItems()
+    protected override void getItems()
     {
         Item item = possibleRewards[Random.Range(0, possibleRewards.Count)];
 
@@ -124,35 +105,12 @@ public class PickPocket : Singleton<PickPocket>
         Player.Instance.ChangeMoney(moneyAmount);       
     }
 
-    //---This shows an animation in the bottom left corner showing the stolen item
-    void showStolenItem(Item item, float amount)
-    {
-        stolenItems.GetComponentInChildren<Image>().sprite = item.sprite;
-        stolenItems.transform.GetComponentInChildren<TextMeshProUGUI>().text = "+" + amount.ToString() + " " + item.name;
-
-        stolenItemsAnimator.SetTrigger("stolen");
-    }
-
-
-    //---This can be called from anywhere, when the same scam is performed a lot of times repetitively 
-    public void increaseDifficulty(float difficulty)
-    {
-        difficultyLevel = difficulty;
-    }
-
 
     //--- If the NPC is not in range of the player, then the scam event is stopped
-    public void EndEvent()
+    public override void EndEvent()
     {
-        if (!canvas.activeSelf)
-            return;
-
+        base.EndEvent();
         isShrinking = false;
         outerCircle.gameObject.SetActive(false);
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
-        canvas.SetActive(false);
     }
 }

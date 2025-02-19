@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class ScamWheel : MonoBehaviour
 {
+    ScamType selectedScam;
+    
     GameObject ScamWheelGO;
 
     private void Start()
