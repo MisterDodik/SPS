@@ -12,6 +12,9 @@ public class CanvasGameplay : UICanvas
     [SerializeField] private GameObject Inventory;
     [SerializeField] private GameObject InventoryContent;
 
+    [SerializeField] private GameObject ScamWheel;
+
+
     public Slider GetStaminaSlider()
     {
         return staminaSlider;
@@ -28,7 +31,10 @@ public class CanvasGameplay : UICanvas
     {
         return InventoryContent;
     }
-
+    public GameObject GetScamWheel()
+    {
+        return ScamWheel;
+    }
     private void Start()
     {
         player.OnMoneyChanged += Player_OnMoneyChanged;
