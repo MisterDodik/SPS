@@ -26,8 +26,11 @@ public class QuickTimeEvent : ScamBase
 
         canvas.SetActive(false);
     }
-    protected override void HandleScamEvent(ScamType scamType, float npcFacing)
+    protected override void HandleScamEvent(ScamType scamType, float npcFacing, bool isRepeated)
     {
+        base.HandleScamEvent(scamType, npcFacing, isRepeated);
+        print(difficultyLevel);
+
         if (scamType == ScamType.Distraction)
         {
             npcFacingMultiplier = npcFacing;
@@ -82,11 +85,11 @@ public class QuickTimeEvent : ScamBase
             getItems();
         else if (currentPos > 30 && currentPos < 60)
         {
-            suspicionMeter.value += difficultyLevel * npcFacingMultiplier * currentPos / 20;
+            suspicionMeter.value += difficultyLevel * npcFacingMultiplier * currentPos / 10;
             getItems();
         }
         else
-            suspicionMeter.value += difficultyLevel * npcFacingMultiplier * currentPos / 10;
+            suspicionMeter.value += difficultyLevel * npcFacingMultiplier * currentPos / 5;
 
         EndEvent();
     }   

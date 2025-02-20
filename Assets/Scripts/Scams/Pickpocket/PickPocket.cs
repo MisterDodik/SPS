@@ -14,7 +14,6 @@ public class PickPocket : ScamBase
     private float difficultyConstant = 120;
     private float npcFacingMultiplier = 1;
 
-
     protected override void Start()
     {
         base.Start();
@@ -26,8 +25,11 @@ public class PickPocket : ScamBase
         innerCircleSize = innerCircle.rectTransform.sizeDelta.x;
     }
 
-    protected override void HandleScamEvent(ScamType scamType, float npcFacing)
+    protected override void HandleScamEvent(ScamType scamType, float npcFacing, bool isRepeated)
     {
+        base.HandleScamEvent(scamType, npcFacing, isRepeated);
+        print(difficultyLevel);
+
         if (scamType == ScamType.Pickpocket)
         {
             npcFacingMultiplier = npcFacing;
