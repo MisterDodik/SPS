@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public abstract class ScamBase : Singleton<ScamBase>
 {
-    GameObject canvas;
+    GameObject baseCanvas;
 
     protected Slider suspicionMeter;
     protected float difficultyLevel = 1;
@@ -28,12 +28,12 @@ public abstract class ScamBase : Singleton<ScamBase>
 
     protected virtual void StartTheEvent(float npc_facing, GameObject _canvas)
     {
-        canvas = _canvas;
+        baseCanvas = _canvas;
 
         Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;    
+        Cursor.visible = true;
 
-        canvas.SetActive(true);
+        baseCanvas.SetActive(true);
     }
 
 
@@ -61,12 +61,12 @@ public abstract class ScamBase : Singleton<ScamBase>
     //--- If the NPC is not in range of the player, then the scam event is stopped
     public virtual void EndEvent()
     {
-        if (canvas==null || !canvas.activeSelf)
+        if (baseCanvas == null || !baseCanvas.activeSelf)
             return;  
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        canvas.SetActive(false);
+        baseCanvas.SetActive(false);
     }
 }
