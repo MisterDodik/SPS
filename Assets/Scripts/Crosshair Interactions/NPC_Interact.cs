@@ -1,7 +1,9 @@
+using Unity.Behavior;
 using UnityEngine;
 
 public class NPC_Interact : MonoBehaviour, IInteractable
 {
+    [SerializeField] private BehaviorGraphAgent agent;
     public void Interact(Player player)
     {
         Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
@@ -11,13 +13,13 @@ public class NPC_Interact : MonoBehaviour, IInteractable
         // If dot product is negative, player is behind the NPC
         if (dotProduct < 0)
         {
-            Debug.Log("Player is interacting BEHIND the NPC!");
-            ScamManager.Instance.StartScam(ScamType.Pickpocket, 1);
+            //Player is interacting BEHIND the NPC
+            ScamManager.Instance.StartScam(ScamType.Pickpocket, 1, agent);
         }
         else
         {
-            Debug.Log("Player is interacting IN FRONT OF the NPC");
-            ScamManager.Instance.StartScam(ScamType.Distraction, 1.2f);
+            //Player is interacting IN FRONT OF the NPC
+            ScamManager.Instance.StartScam(ScamType.Pickpocket, 1.2f, agent);
         }
     }
 }

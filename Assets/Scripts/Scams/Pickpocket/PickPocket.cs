@@ -81,7 +81,10 @@ public class PickPocket : ScamBase
             getItems();
         }
         else
+        {
             suspicionMeter.value += difficultyLevel * npcFacingMultiplier * distance / 10;
+            ScamManager.Instance.GetAffectedNPC().SetVariableValue<bool>("Scammed", true);
+        }
 
         EndEvent();
     }
