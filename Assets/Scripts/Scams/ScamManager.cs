@@ -20,5 +20,7 @@ public class ScamManager : Singleton<ScamManager>
 public enum ScamType
 {
     Pickpocket,
-    Distraction
+    Distraction,
+    ATM,
+    FakeTickets
 }

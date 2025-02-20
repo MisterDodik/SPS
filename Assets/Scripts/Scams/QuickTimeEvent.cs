@@ -11,9 +11,8 @@ public class QuickTimeEvent : ScamBase
     float interval = 0;
 
     bool leftToRight = false;
-    Vector3 startPos = new Vector3(-150, -300);
-    Vector3 endPos = new Vector3(150, -300);
-    Vector2 middlePos = new Vector3(0, -150);
+    Vector3 startPos = new Vector3(-150, -150);
+    Vector3 endPos = new Vector3(150, -150);
 
     Quaternion leftRot = Quaternion.Euler(0, 0, 90);
     Quaternion rightRot = Quaternion.Euler(0, 0, -90);

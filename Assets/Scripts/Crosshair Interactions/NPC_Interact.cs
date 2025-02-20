@@ -10,16 +10,19 @@ public class NPC_Interact : MonoBehaviour, IInteractable
 
         float dotProduct = Vector3.Dot(transform.forward, directionToPlayer);
 
+        ScamType scamType = ScamWheel.Instance.selectedScam;
+
+
         // If dot product is negative, player is behind the NPC
         if (dotProduct < 0)
         {
             //Player is interacting BEHIND the NPC
-            ScamManager.Instance.StartScam(ScamType.Pickpocket, 1, agent);
+            ScamManager.Instance.StartScam(scamType, 1, agent);
         }
         else
         {
             //Player is interacting IN FRONT OF the NPC
-            ScamManager.Instance.StartScam(ScamType.Pickpocket, 1.2f, agent);
+            ScamManager.Instance.StartScam(scamType, 1.2f, agent);
         }
     }
 }

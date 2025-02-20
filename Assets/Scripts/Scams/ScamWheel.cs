@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class ScamWheel : MonoBehaviour
+public class ScamWheel : Singleton<ScamWheel>
 {
-    public ScamType selectedScam;
+    [HideInInspector]public ScamType selectedScam = ScamType.Pickpocket;
     
     GameObject ScamWheelGO;
 
@@ -15,6 +15,7 @@ public class ScamWheel : MonoBehaviour
 
         ScamWheelGO.SetActive(false);
 
+        
     }
 
     private void Instance_OnScamWheelDisable(object sender, System.EventArgs e)
@@ -22,6 +23,8 @@ public class ScamWheel : MonoBehaviour
         ScamWheelGO.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        print(selectedScam);
     }
 
     private void Instance_OnScamWheelActivate(object sender, System.EventArgs e)
@@ -30,5 +33,11 @@ public class ScamWheel : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
+    }
+
+
+    public void pickScam(ScamType type)
+    {
+        selectedScam = type;
     }
 }
