@@ -17,7 +17,7 @@ public class NPC_Interact : MonoBehaviour, IInteractable
         else
         {
             Debug.Log("Player is interacting IN FRONT OF the NPC");
-            ScamManager.Instance.StartScam(ScamType.Pickpocket, 1.2f);
+            ScamManager.Instance.StartScam(ScamType.Distraction, 1.2f);
         }
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class PickPocket : ScamBase
 {
-    [SerializeField] new GameObject canvas;
+    [SerializeField] GameObject canvas;
 
     [SerializeField] private Image outerCircle;
     [SerializeField] private Image innerCircle;

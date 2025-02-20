@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ScamWheel : MonoBehaviour
 {
-    ScamType selectedScam;
+    public ScamType selectedScam;
     
     GameObject ScamWheelGO;
 

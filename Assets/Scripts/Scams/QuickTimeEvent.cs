@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Linq.Expressions;
-using TMPro.EditorUtilities;
+
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QuickTimeEvent : MonoBehaviour
+public class QuickTimeEvent : ScamBase
 {
+    [SerializeField] GameObject canvas;
+
     [SerializeField] private Image arrow;
 
     float interval = 0;
@@ -13,9 +13,28 @@ public class QuickTimeEvent : MonoBehaviour
     bool leftToRight = false;
     Vector3 startPos = new Vector3(-150, -300);
     Vector3 endPos = new Vector3(150, -300);
+    Vector2 middlePos = new Vector3(0, -150);
+
     Quaternion leftRot = Quaternion.Euler(0, 0, 90);
     Quaternion rightRot = Quaternion.Euler(0, 0, -90);
 
+
+    private float difficultyConstant = 120;
+    private float npcFacingMultiplier = 1;
+    protected override void Start()
+    {
+        base.Start();
+
+        canvas.SetActive(false);
+    }
+    protected override void HandleScamEvent(ScamType scamType, float npcFacing)
+    {
+        if (scamType == ScamType.Distraction)
+        {
+            npcFacingMultiplier = npcFacing;
+            StartTheEvent(npcFacing, canvas);
+        }
+    }
     private void Update()
     {
         interval+=Time.deltaTime;
@@ -56,7 +75,41 @@ public class QuickTimeEvent : MonoBehaviour
 
     public void OnClick()
     {
+        float currentPos = arrow.rectTransform.eulerAngles.z;
+        currentPos = Mathf.Repeat(currentPos + 180, 360) - 180;
+        currentPos = Mathf.Abs(currentPos);
 
+        if (currentPos < 12)
+            getItems();
+        else if (currentPos > 30 && currentPos < 60)
+        {
+            suspicionMeter.value += difficultyLevel * npcFacingMultiplier * currentPos / 20;
+            getItems();
+        }
+        else
+            suspicionMeter.value += difficultyLevel * npcFacingMultiplier * currentPos / 10;
+
+        EndEvent();
+    }   
+
+
+
+    //---This can be used to give the player a random item from a list, but for now it only gives random amount of cash
+    protected override void getItems()
+    {
+        Item item = possibleRewards[Random.Range(0, possibleRewards.Count)];
+
+        if (item is not CashItem)
+        {
+            InventorySystem.Instance.AddItem(item, +1);
+            showStolenItem(item, 1);
+            return;
+        }
+
+        float moneyAmount = Random.Range(15, 50) / difficultyLevel;        // dividing by difficultyLevel because that shows how often the scam was perfomed lately
+        moneyAmount = (Mathf.Round(moneyAmount * 100)) / 100;    //rounding to 2 decimal places
+        showStolenItem(item, moneyAmount);
+
+        Player.Instance.ChangeMoney(moneyAmount);
     }
-
 }

@@ -11,7 +11,7 @@ public abstract class ScamBase : Singleton<ScamBase>
     protected float difficultyLevel = 1;
 
     protected List<Item> possibleRewards = new List<Item>();
-    [SerializeField] public GameObject stolenItems;
+    [SerializeField] private GameObject stolenItems;
     protected Animator stolenItemsAnimator;
 
     protected virtual void Start()
