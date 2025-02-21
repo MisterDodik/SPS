@@ -16,10 +16,10 @@ public class PlayerInteract : MonoBehaviour
     ScamBase currentScam;
     private void Start()
     {
-        ControlsManager.Instance.OnInteract += ControlsManager_OnInteractPerformed;
+        ControlsManager.Instance.OnInteractOrWheel += ControlsManager_OnInteractPerformed;
 
         //---This should be changed later, when we add key bindings settings, so that it gets updated
-        interactAction = ControlsManager.Instance.getKeyBinding(ControlsManager.Instance.playerActions.Interact);
+        interactAction = ControlsManager.Instance.getKeyBinding(ControlsManager.Instance.playerActions.InteractNWheel);
     }
 
     private void ControlsManager_OnInteractPerformed(object sender, EventArgs e)

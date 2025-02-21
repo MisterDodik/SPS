@@ -33,12 +33,12 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Interact",
+                    "name": "InteractNWheel",
                     "type": "Button",
                     "id": "852140f2-7766-474d-8707-702459ba45f3",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Press",
+                    "interactions": "Hold,Press",
                     "initialStateCheck": false
                 },
                 {
@@ -93,15 +93,6 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ScamWheel",
-                    "type": "Button",
-                    "id": "c3f75602-7435-47a3-a55b-1a0bacb4e1cd",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "Hold",
                     "initialStateCheck": false
                 }
             ],
@@ -394,28 +385,6 @@
                 },
                 {
                     "name": "",
-                    "id": "781e9335-4e01-419f-b1b1-69297510b070",
-                    "path": "<Mouse>/middleButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "ScamWheel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f61abbea-a34c-41bf-8503-eb16d5eec5df",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ScamWheel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "eb40bb66-4559-4dfa-9a2f-820438abb426",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -509,7 +478,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Interact",
+                    "action": "InteractNWheel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -520,7 +489,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Interact",
+                    "action": "InteractNWheel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

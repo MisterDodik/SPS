@@ -1,14 +1,15 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class ControlsManager : Singleton<ControlsManager>
 {
     public event EventHandler OnSprintPerformed;
     public event EventHandler OnSprintCanceled;
     public event EventHandler OnJump;
-    public event EventHandler OnInteract;
     public event EventHandler OnInventory;
+    public event EventHandler OnInteractOrWheel;
     public event EventHandler OnScamWheelActivate;
     public event EventHandler OnScamWheelDisable;
 
@@ -28,31 +29,33 @@ public class ControlsManager : Singleton<ControlsManager>
         playerActions.Sprint.canceled += Sprint_canceled;
         playerActions.Jump.performed += Jump_performed;
 
-        playerActions.Interact.started += Interact_started;
+        playerActions.InteractNWheel.performed += InteractOrWheel_performed;
+        playerActions.InteractNWheel.canceled += ScamWheel_canceled;
+
         playerActions.Inventory.performed += Inventory_performed;
 
-        playerActions.ScamWheel.performed += ScamWheel_performed;
-        playerActions.ScamWheel.canceled += ScamWheel_canceled;
-
     }
 
-    private void ScamWheel_performed(InputAction.CallbackContext obj)
-    {
-        OnScamWheelActivate?.Invoke(this, EventArgs.Empty);
-    }
     private void ScamWheel_canceled(InputAction.CallbackContext obj)
     {
         OnScamWheelDisable?.Invoke(this, EventArgs.Empty);
     }
+    private void InteractOrWheel_performed(InputAction.CallbackContext obj)
+    {
+        if (obj.interaction is PressInteraction)
+        {
+            OnInteractOrWheel?.Invoke(this, EventArgs.Empty);
+        }
+        else if (obj.interaction is HoldInteraction)
+        {
+            OnScamWheelActivate?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
 
     private void Inventory_performed(InputAction.CallbackContext obj)
     {
         OnInventory?.Invoke(this, EventArgs.Empty);
-    }
-
-    private void Interact_started(InputAction.CallbackContext obj)
-    {
-        OnInteract?.Invoke(this, EventArgs.Empty);
     }
 
     private void Jump_performed(InputAction.CallbackContext obj)
