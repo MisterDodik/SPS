@@ -44,6 +44,7 @@ public class ScamManager : Singleton<ScamManager>
 
         return scamDifficulties.TryGetValue(currentType, out int difficultyPower) ? difficultyPower : 0;
     }
+
     //---Called after the performed scam
     public void updateList(ScamType type)
     {
@@ -57,6 +58,8 @@ public class ScamManager : Singleton<ScamManager>
         if (lastScams.Count > 30)
             lastScams.RemoveAt(0);
     }
+
+
 
 
 
@@ -77,11 +80,4 @@ public enum ScamType
     Distraction,
     ATM,
     FakeTickets
-}
-
-
-
-public class Test: MonoBehaviour
-{
-   
 }

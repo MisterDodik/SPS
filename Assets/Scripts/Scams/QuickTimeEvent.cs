@@ -18,7 +18,6 @@ public class QuickTimeEvent : ScamBase
     Quaternion rightRot = Quaternion.Euler(0, 0, -90);
 
 
-    private float difficultyConstant = 120;
     private float npcFacingMultiplier = 1;
     protected override void Start()
     {
@@ -34,6 +33,8 @@ public class QuickTimeEvent : ScamBase
             ScamWheel.Instance.getcurrentScam(this);
             npcFacingMultiplier = npcFacing;
             StartTheEvent(npcFacing, canvas);
+
+            difficultyLevel /= 3;
         }
     }
     private void Update()

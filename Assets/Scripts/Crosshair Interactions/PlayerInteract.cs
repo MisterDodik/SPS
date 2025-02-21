@@ -39,6 +39,8 @@ public class PlayerInteract : MonoBehaviour
 
             crosshairImage.color = Color.white;
             TextBubbleScript.instance.DestroyBubble();
+
+            //resetting the current scam event
             currentScam = ScamWheel.Instance.scam;
             if (currentScam != null)
             {

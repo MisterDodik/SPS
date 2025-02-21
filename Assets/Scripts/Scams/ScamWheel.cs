@@ -15,8 +15,6 @@ public class ScamWheel : Singleton<ScamWheel>
         ScamWheelGO = UIManager.Instance.GetUI<CanvasGameplay>().GetScamWheel();
 
         ScamWheelGO.SetActive(false);
-
-        
     }
 
     public void getcurrentScam(ScamBase _scam)
