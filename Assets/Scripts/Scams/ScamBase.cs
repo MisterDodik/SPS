@@ -15,6 +15,11 @@ public abstract class ScamBase : Singleton<ScamBase>
     protected Animator stolenItemsAnimator;
 
     protected float difficultyLevel = 1;
+
+    protected ScamType currentScam = ScamType.Null;
+
+    bool hasStarted = false;
+    int multiplier=1;           
     protected virtual void Start()
     {
         possibleRewards = ItemManager.Instance.items;
@@ -25,12 +30,13 @@ public abstract class ScamBase : Singleton<ScamBase>
         ScamManager.Instance.OnScamStarted += HandleScamEvent;
     }
 
-    protected virtual void HandleScamEvent(ScamType scamType, float npcFacing, bool isRepeated)
+    protected virtual void HandleScamEvent(ScamType scamType, float npcFacing)
     {
-        if (isRepeated)
-            difficultyLevel *= difficultyMultiplier;
-        else
-            difficultyLevel = 1;
+        hasStarted = true;
+        currentScam = scamType;
+
+        multiplier = ScamManager.Instance.getDifficultyMultiplier(scamType);
+        difficultyLevel = Mathf.Pow(difficultyMultiplier, multiplier);
     }
 
     protected virtual void StartTheEvent(float npc_facing, GameObject _canvas)
@@ -46,6 +52,14 @@ public abstract class ScamBase : Singleton<ScamBase>
 
     //---This can be used to give the player a random item from a list, but for now it only gives random amount of cash
     protected abstract void getItems();
+
+
+    //---This can be used once the button is clicked, ie when the QTE is over
+    protected virtual void updateLastScam()
+    {
+        ScamManager.Instance.updateList(currentScam);
+    }
+
 
 
     //---This shows an animation in the bottom left corner showing the stolen item
@@ -68,11 +82,18 @@ public abstract class ScamBase : Singleton<ScamBase>
         Cursor.visible = false;
 
         baseCanvas.SetActive(false);
+        hasStarted = false;
     }
 
-    //---If the NPC goes out of range
+    //---If the NPC is not in range of the player, then the scam event is stopped
     public virtual void ResetDifficulty()
     {
-        difficultyLevel = 1;
+        if (!hasStarted)
+            return;
+
+        if (difficultyLevel > 1)
+            difficultyLevel /= difficultyMultiplier;
+        else
+            difficultyLevel = 1;
     }
 }

@@ -13,6 +13,7 @@ public class PlayerInteract : MonoBehaviour
 
     private string interactAction;
 
+    ScamBase currentScam;
     private void Start()
     {
         ControlsManager.Instance.OnInteract += ControlsManager_OnInteractPerformed;
@@ -38,7 +39,12 @@ public class PlayerInteract : MonoBehaviour
 
             crosshairImage.color = Color.white;
             TextBubbleScript.instance.DestroyBubble();
-            PickPocket.Instance.EndEvent();
+            currentScam = ScamWheel.Instance.scam;
+            if (currentScam != null)
+            {
+                currentScam.ResetDifficulty();
+                currentScam.EndEvent();
+            }
         }
     }
     public void FindInteractable()

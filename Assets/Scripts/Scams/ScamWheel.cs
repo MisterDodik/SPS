@@ -6,6 +6,7 @@ public class ScamWheel : Singleton<ScamWheel>
     
     GameObject ScamWheelGO;
 
+    public ScamBase scam;
     private void Start()
     {
         ControlsManager.Instance.OnScamWheelActivate += Instance_OnScamWheelActivate;
@@ -17,7 +18,11 @@ public class ScamWheel : Singleton<ScamWheel>
 
         
     }
-
+    public void getcurrentScam(ScamBase _scam)
+    {
+        scam = _scam;
+        print(scam);
+    }
     private void Instance_OnScamWheelDisable(object sender, System.EventArgs e)
     {
         ScamWheelGO.SetActive(false);

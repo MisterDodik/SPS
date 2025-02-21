@@ -4,7 +4,6 @@ using UnityEngine;
 public class NPC_Interact : MonoBehaviour, IInteractable
 {
     [SerializeField] private BehaviorGraphAgent agent;
-    ScamType lastScam = ScamType.Null;
     public void Interact(Player player)
     {
         Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
@@ -17,13 +16,12 @@ public class NPC_Interact : MonoBehaviour, IInteractable
         if (dotProduct < 0)
         {
             //Player is interacting BEHIND the NPC
-            ScamManager.Instance.StartScam(scamType, 1, agent, scamType==lastScam ? true : false);
+            ScamManager.Instance.StartScam(scamType, 1, agent);
         }
         else
         {
             //Player is interacting IN FRONT OF the NPC
-            ScamManager.Instance.StartScam(scamType, 1.2f, agent, scamType == lastScam ? true : false);
+            ScamManager.Instance.StartScam(scamType, 1.2f, agent);
         }
-        lastScam = scamType;
     }
 }

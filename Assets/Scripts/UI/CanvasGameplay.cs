@@ -44,6 +44,6 @@ public class CanvasGameplay : UICanvas
 
     private void Player_OnMoneyChanged(object sender, Player.OnMoneyChangedEventArgs e)
     {
-        moneyText.text = $"{e.money:N0}$";
+        moneyText.text = $"{e.money:N2}$";
     }
 }

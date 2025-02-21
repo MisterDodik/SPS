@@ -25,13 +25,12 @@ public class PickPocket : ScamBase
         innerCircleSize = innerCircle.rectTransform.sizeDelta.x;
     }
 
-    protected override void HandleScamEvent(ScamType scamType, float npcFacing, bool isRepeated)
+    protected override void HandleScamEvent(ScamType scamType, float npcFacing)
     {
-        base.HandleScamEvent(scamType, npcFacing, isRepeated);
-        print(difficultyLevel);
-
         if (scamType == ScamType.Pickpocket)
         {
+            base.HandleScamEvent(scamType, npcFacing);
+            ScamWheel.Instance.getcurrentScam(this);
             npcFacingMultiplier = npcFacing;
             StartTheEvent(npcFacing, canvas);
         }
@@ -87,7 +86,7 @@ public class PickPocket : ScamBase
             suspicionMeter.value += difficultyLevel * npcFacingMultiplier * distance / 10;
             ScamManager.Instance.GetAffectedNPC().SetVariableValue<bool>("Scammed", true);
         }
-
+        updateLastScam();
         EndEvent();
     }
     

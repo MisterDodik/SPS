@@ -26,13 +26,12 @@ public class QuickTimeEvent : ScamBase
 
         canvas.SetActive(false);
     }
-    protected override void HandleScamEvent(ScamType scamType, float npcFacing, bool isRepeated)
+    protected override void HandleScamEvent(ScamType scamType, float npcFacing)
     {
-        base.HandleScamEvent(scamType, npcFacing, isRepeated);
-        print(difficultyLevel);
-
         if (scamType == ScamType.Distraction)
         {
+            base.HandleScamEvent(scamType, npcFacing);
+            ScamWheel.Instance.getcurrentScam(this);
             npcFacingMultiplier = npcFacing;
             StartTheEvent(npcFacing, canvas);
         }
@@ -50,10 +49,10 @@ public class QuickTimeEvent : ScamBase
 
         if (leftToRight)
         {
-            arrow.rectTransform.anchoredPosition = Vector3.Slerp(startRelCenter, endRelCenter, interval);
+            arrow.rectTransform.anchoredPosition = Vector3.Slerp(startRelCenter, endRelCenter, interval*difficultyLevel);
             arrow.rectTransform.anchoredPosition += (Vector2)center;
 
-            arrow.rectTransform.rotation = Quaternion.Slerp(leftRot, rightRot, interval);
+            arrow.rectTransform.rotation = Quaternion.Slerp(leftRot, rightRot, interval * difficultyLevel);
             if (Vector2.Distance(arrow.rectTransform.anchoredPosition, endPos) < 0.1f)
             {
                 interval = 0;
@@ -62,10 +61,10 @@ public class QuickTimeEvent : ScamBase
         }
         else
         {
-            arrow.rectTransform.anchoredPosition = Vector3.Slerp(endRelCenter, startRelCenter, interval);
+            arrow.rectTransform.anchoredPosition = Vector3.Slerp(endRelCenter, startRelCenter, interval * difficultyLevel);
             arrow.rectTransform.anchoredPosition +=(Vector2) center;
 
-            arrow.rectTransform.rotation = Quaternion.Slerp(rightRot, leftRot, interval);
+            arrow.rectTransform.rotation = Quaternion.Slerp(rightRot, leftRot, interval * difficultyLevel);
             if (Vector2.Distance(arrow.rectTransform.anchoredPosition, startPos) < 0.1f)
             {
                 interval = 0;
@@ -90,7 +89,8 @@ public class QuickTimeEvent : ScamBase
         }
         else
             suspicionMeter.value += difficultyLevel * npcFacingMultiplier * currentPos / 5;
-
+        
+        updateLastScam();
         EndEvent();
     }   
 
