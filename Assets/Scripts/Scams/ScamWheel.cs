@@ -20,7 +20,6 @@ public class ScamWheel : Singleton<ScamWheel>
     public void getcurrentScam(ScamBase _scam)
     {
         scam = _scam;
-        print(scam);
     }
     private void Instance_OnScamWheelDisable(object sender, System.EventArgs e)
     {

@@ -63,6 +63,7 @@ public class PlayerInteract : MonoBehaviour
             return "Press " + interactAction + " to sell all the common items.";
         else if (hitTag == "ClubShopman")
             return "Press " + interactAction + " to sell all the valuables.";
+
         return "Press " + interactAction + " to interact.";
     }
 }
