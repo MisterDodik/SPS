@@ -1869,6 +1869,9 @@ MonoBehaviour:
   fallForce: 10
   staminaUsage: 0.2
   staminaRechargeTime: 2
+  vcam: {fileID: 1936013335}
+  walkingViewBobbing: {fileID: 11400000, guid: 038635278893e6741b268bb927311d79, type: 2}
+  defaultViewBobbing: {fileID: 11400000, guid: 715ad1e51c0b1714ea4ba31dbfc71408, type: 2}
   playerHeight: 2
   groundMask:
     serializedVersion: 2

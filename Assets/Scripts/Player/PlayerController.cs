@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Unity.Cinemachine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,7 +24,10 @@ public class PlayerController : MonoBehaviour
     Color defaultStaminaColor;          
     Color sprintingStaminaColor;
 
-
+    [SerializeField] CinemachineCamera vcam;
+    CinemachineBasicMultiChannelPerlin cinemachinePerlin;
+    [SerializeField] NoiseSettings walkingViewBobbing;
+    [SerializeField] NoiseSettings defaultViewBobbing;
 
     private bool isSprinting = false;
     private Vector2 m_moveInput;
@@ -52,6 +56,8 @@ public class PlayerController : MonoBehaviour
         staminaImage = UIManager.Instance.GetUI<CanvasGameplay>().GetStaminaImage();
         defaultStaminaColor = staminaImage.color;
         sprintingStaminaColor = new Color(0, 0, 0);
+
+        cinemachinePerlin = vcam.GetCinemachineComponent(CinemachineCore.Stage.Noise) as CinemachineBasicMultiChannelPerlin;
     }
 
     private void ConstrolsManager_OnJump(object sender, System.EventArgs e)
@@ -155,5 +161,9 @@ public class PlayerController : MonoBehaviour
     public void onMove(Vector2 input)
     {
         m_moveInput = input;
+        if(input!=Vector2.zero)
+            cinemachinePerlin.NoiseProfile = walkingViewBobbing;
+        else
+            cinemachinePerlin.NoiseProfile = defaultViewBobbing;
     }
 }
