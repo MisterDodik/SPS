@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class InventorySystem : Singleton<InventorySystem>
 {
-    List<InventorySlot> container = new List<InventorySlot>();          // Actual objects that the player owns
+    [HideInInspector] public List<InventorySlot> container = new List<InventorySlot>();          // Actual objects that the player owns
     List<InventorySlot> addedItems = new List<InventorySlot>();         // Keeps track what items have already been added to the inventory
 
     GameObject Inventory;
@@ -16,6 +16,7 @@ public class InventorySystem : Singleton<InventorySystem>
 
     public GameObject itemPrefab;
 
+    public Item cashIcon;
     private void Start()
     {
         Inventory = UIManager.Instance.GetUI<CanvasGameplay>().GetInventoryObject();
@@ -28,11 +29,12 @@ public class InventorySystem : Singleton<InventorySystem>
     {
         isInventoryOpen = !isInventoryOpen;
 
+        showItems();
+
         Cursor.lockState = isInventoryOpen ? CursorLockMode.Confined : CursorLockMode.Locked;
         Cursor.visible = isInventoryOpen;
         Inventory.SetActive(isInventoryOpen);
 
-        showItems();
     }
 
 
@@ -52,9 +54,9 @@ public class InventorySystem : Singleton<InventorySystem>
         for (int i = 0; i < container.Count; i++)
         {
             InventorySlot slot = container[i];
-
             if (addedItems.Contains(slot))
             {
+            print((slot.item.name, i));
                 // Update existing item
                 Transform itemSlot = InventorySlots.GetChild(i);
                 UpdateItemSlotUI(itemSlot, slot, i);
@@ -104,23 +106,35 @@ public class InventorySystem : Singleton<InventorySystem>
     }
 
 
-    public void SellItem(Item item)
+    public void SellCommonItems()
     {
-        // ---Prototype implementation
-        /*
-        InventorySlot existingSlot = container.Find(slot => slot.item == item);
-
-        if (existingSlot != null)
+        float total = 0;
+        for(int i=0; i< addedItems.Count; i++)
         {
-            existingSlot.amount--;
+            InventorySlot slot = addedItems[i];
 
-            if (existingSlot.amount <= 0)
-            {
-                container.Remove(existingSlot);
-            }
+            if (slot.item.isValuable)
+                continue;
+            int amount = slot.amount;
+            float price = slot.item.basePrice;
+            total += amount * price;
+
+            slot.amount = 0;
+            container.Remove(slot);
         }
-        showItems();
-        */
+
+        if (total == 0)        
+            return;
+
+        showItems();            // updates inventory ui
+        Player.Instance.ChangeMoney(total);
+        ScamBase.Instance.showStolenItem(cashIcon, total);      
+    }
+
+    public void SellValuables()
+    {
+        //we will see how this will work
+        print("Valuables sold");
     }
 }
 

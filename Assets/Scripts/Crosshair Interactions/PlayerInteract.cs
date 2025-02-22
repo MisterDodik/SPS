@@ -31,7 +31,7 @@ public class PlayerInteract : MonoBehaviour
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 2.5f, layerMask))
         {
             crosshairImage.color = Color.black;
-            TextBubbleScript.instance.CreateBubble(hit.transform, new Vector3(0, 1.5f, 0), GetText());
+            TextBubbleScript.instance.CreateBubble(hit.transform, new Vector3(0, 1.5f, 0), GetText(hit.collider.tag));
         }
         else
         {
@@ -57,8 +57,12 @@ public class PlayerInteract : MonoBehaviour
         }
     }
 
-    string GetText()
+    string GetText(string hitTag)
     {
+        if(hitTag == "Shopman")
+            return "Press " + interactAction + " to sell all the common items.";
+        else if (hitTag == "ClubShopman")
+            return "Press " + interactAction + " to sell all the valuables.";
         return "Press " + interactAction + " to interact.";
     }
 }

@@ -8,7 +8,8 @@ public class Item : ScriptableObject
     public Sprite sprite;
 
     [HideInInspector]public bool isSellable = true;
-    public float shopPrice;
-    public float clubPrice;
+    [HideInInspector] public bool isValuable = false;
+
+    public float basePrice;
 
 }

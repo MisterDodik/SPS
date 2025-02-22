@@ -27,8 +27,6 @@ public class ScamWheel : Singleton<ScamWheel>
         ScamWheelGO.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        print(selectedScam);
     }
 
     private void Instance_OnScamWheelActivate(object sender, System.EventArgs e)

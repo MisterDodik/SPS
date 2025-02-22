@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Phone
   sprite: {fileID: 0}
   isSellable: 1
-  shopPrice: 500
-  clubPrice: 575
+  isValuable: 0
+  basePrice: 575

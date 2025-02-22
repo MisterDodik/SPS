@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Wallet
   sprite: {fileID: 0}
   isSellable: 1
-  shopPrice: 875
-  clubPrice: 1035
+  isValuable: 0
+  basePrice: 435

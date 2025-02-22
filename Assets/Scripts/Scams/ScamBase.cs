@@ -63,7 +63,7 @@ public abstract class ScamBase : Singleton<ScamBase>
 
 
     //---This shows an animation in the bottom left corner showing the stolen item
-    protected virtual void showStolenItem(Item item, float amount)
+    public virtual void showStolenItem(Item item, float amount)
     {
         stolenItems.GetComponentInChildren<Image>().sprite = item.sprite;
         stolenItems.transform.GetComponentInChildren<TextMeshProUGUI>().text = "+" + amount.ToString() + " " + item.name;
