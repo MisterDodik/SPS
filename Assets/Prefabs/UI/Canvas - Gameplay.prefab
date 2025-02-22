@@ -862,7 +862,7 @@ MonoBehaviour:
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
-  m_FillClockwise: 1
+  m_FillClockwise: 0
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
@@ -1502,7 +1502,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   suspiciousSlider: {fileID: 2553947882563077765}
   staminaSlider: {fileID: 8457258657024026901}
-  staminaImage: {fileID: 0}
+  staminaDrainSlider: {fileID: 6921534919878676762}
+  staminaImage: {fileID: 3112975496159145619}
   player: {fileID: 0}
   moneyText: {fileID: 6295512422138277882}
   Inventory: {fileID: 7468496946842964411}
@@ -1855,8 +1856,8 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.711
-  m_FillClockwise: 1
+  m_FillAmount: 1
+  m_FillClockwise: 0
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
