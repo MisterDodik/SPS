@@ -1045,6 +1045,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 354150960}
   m_CullTransparentMesh: 1
+--- !u!114 &392027500 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3112975496159145619, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
+  m_PrefabInstance: {fileID: 4824403352190325769}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &397470897
 GameObject:
   m_ObjectHideFlags: 0
@@ -1435,6 +1446,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 506607027}
   m_CullTransparentMesh: 1
+--- !u!114 &558855129 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6921534919878676762, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
+  m_PrefabInstance: {fileID: 4824403352190325769}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &567163199
 GameObject:
   m_ObjectHideFlags: 0
@@ -1868,6 +1890,7 @@ MonoBehaviour:
   airMultiplier: 0.1
   fallForce: 10
   staminaUsage: 0.2
+  staminaRechargeTime: 2
   playerHeight: 2
   groundMask:
     serializedVersion: 2
@@ -4952,11 +4975,23 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas - Gameplay
       objectReference: {fileID: 0}
+    - target: {fileID: 6921534919878676762, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7012044547082177792, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7012044547082177792, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7020870619627436378, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7020870619627436378, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
@@ -4972,6 +5007,14 @@ PrefabInstance:
       propertyPath: ScamWheel
       value: 
       objectReference: {fileID: 808603154}
+    - target: {fileID: 8098041935522937660, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
+      propertyPath: staminaImage
+      value: 
+      objectReference: {fileID: 392027500}
+    - target: {fileID: 8098041935522937660, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
+      propertyPath: staminaDrainSlider
+      value: 
+      objectReference: {fileID: 558855129}
     - target: {fileID: 8199952173692225630, guid: d8c6c8f23441e144d8080784744ad6c4, type: 3}
       propertyPath: m_Name
       value: Inner Circle

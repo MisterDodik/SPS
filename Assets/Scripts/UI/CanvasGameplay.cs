@@ -6,6 +6,10 @@ public class CanvasGameplay : UICanvas
 {
     [SerializeField] private Slider suspiciousSlider;
     [SerializeField] private Slider staminaSlider;
+    [SerializeField] private Slider staminaDrainSlider;
+
+    [SerializeField] private Image staminaImage;
+
     [SerializeField] private Player player;
     [SerializeField] private TextMeshProUGUI moneyText;
 
@@ -18,6 +22,14 @@ public class CanvasGameplay : UICanvas
     public Slider GetStaminaSlider()
     {
         return staminaSlider;
+    }
+    public Slider GetDrainStaminaSlider()
+    {
+        return staminaDrainSlider;
+    }
+    public Image GetStaminaImage()
+    {
+        return staminaImage;
     }
     public Slider GetSuspicionSlider()
     {

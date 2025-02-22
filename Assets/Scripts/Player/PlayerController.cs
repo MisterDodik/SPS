@@ -1,4 +1,4 @@
-using Unity.AppUI.UI;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -15,7 +15,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float airMultiplier;
     [SerializeField] private float fallForce;
     [SerializeField] private float staminaUsage=0.2f;
-    private Slider staminaSlider;
+    [SerializeField] private float staminaRechargeTime=2;
+    private float staminaDelay;         //tracks cooldown time
+    private Slider staminaSlider;       //the actual stamina
+    private Slider staminaDrainSlider;  //the draining effect of the stamina
+    Image staminaImage;                 //main stamina slider fill image
+    Color defaultStaminaColor;          
+    Color sprintingStaminaColor;
+
+
 
     private bool isSprinting = false;
     private Vector2 m_moveInput;
@@ -29,6 +37,7 @@ public class PlayerController : MonoBehaviour
     //Camera rotation
     public Transform cameraTransform;
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -38,6 +47,11 @@ public class PlayerController : MonoBehaviour
 
         //print(UIManager.Instance.GetUI<CanvasGameplay>().staminaSlider);
         staminaSlider = UIManager.Instance.GetUI<CanvasGameplay>().GetStaminaSlider();
+        staminaDrainSlider = UIManager.Instance.GetUI<CanvasGameplay>().GetDrainStaminaSlider();
+
+        staminaImage = UIManager.Instance.GetUI<CanvasGameplay>().GetStaminaImage();
+        defaultStaminaColor = staminaImage.color;
+        sprintingStaminaColor = new Color(0, 0, 0);
     }
 
     private void ConstrolsManager_OnJump(object sender, System.EventArgs e)
@@ -49,13 +63,31 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
         staminaSlider.value -= staminaUsage;
+        staminaDelay = staminaRechargeTime;
+        StartCoroutine(drainSlider());
+
     }
 
     private void ControlsManager_OnSprintCanceled(object sender, System.EventArgs e)
     {
-        isSprinting = false;
-    }
+        staminaImage.color = defaultStaminaColor;
 
+        isSprinting = false;
+        staminaDelay = staminaRechargeTime;
+        StartCoroutine(drainSlider());
+    }
+    IEnumerator drainSlider()
+    {
+        float drainInterval = 0;
+        float currentSliderDifference = staminaDrainSlider.value - staminaSlider.value;
+        while (staminaDrainSlider.value > staminaSlider.value)
+        {
+            drainInterval += Time.deltaTime / 10;
+            staminaDrainSlider.value = Mathf.Lerp(staminaDrainSlider.value, staminaDrainSlider.value - currentSliderDifference / 10, drainInterval);
+            yield return null;
+        }
+        staminaDrainSlider.value = staminaSlider.value;
+    }
     private void ControlsManager_OnSprintPerformed(object sender, System.EventArgs e)
     {
         isSprinting = true;
@@ -75,10 +107,19 @@ public class PlayerController : MonoBehaviour
         if(flatVel.magnitude>0 && isSprinting)
         {
             staminaSlider.value -= staminaUsage * Time.deltaTime;
+            staminaImage.color = sprintingStaminaColor;
         }
         else
         {
-            staminaSlider.value += staminaUsage * Time.deltaTime*2;     // Stamina regen
+            if(staminaDelay>0)
+            {
+                staminaDelay -= Time.deltaTime;
+            }
+            else
+            {
+                staminaSlider.value += staminaUsage * Time.deltaTime*2;     // Stamina regen
+                staminaDrainSlider.value += staminaUsage * Time.deltaTime * 2;     // Drain stamina regen
+            }
         }
 
         if (staminaSlider.value == 0)
