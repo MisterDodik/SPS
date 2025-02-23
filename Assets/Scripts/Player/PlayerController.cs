@@ -161,7 +161,7 @@ public class PlayerController : MonoBehaviour
     public void onMove(Vector2 input)
     {
         m_moveInput = input;
-        if(input!=Vector2.zero)
+        if(rb.linearVelocity.magnitude>3.5f)
             cinemachinePerlin.NoiseProfile = walkingViewBobbing;
         else
             cinemachinePerlin.NoiseProfile = defaultViewBobbing;
