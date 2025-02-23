@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Player : Singleton<Player>
 {
@@ -9,6 +11,12 @@ public class Player : Singleton<Player>
         public float money;
     }
     private float currentMoney;
+
+
+
+    [SerializeField] private Image selectedItemOrScam;
+    [SerializeField] private TextMeshProUGUI selectedItemOrScamText;
+
 
     private void Update()
     {
@@ -26,5 +34,11 @@ public class Player : Singleton<Player>
         });
     }
 
-
+    public void updateSelectedItem(Sprite image, string text)
+    {
+        if (image)
+            selectedItemOrScam.sprite = image;
+        else
+            selectedItemOrScamText.text = text;
+    }
 }
