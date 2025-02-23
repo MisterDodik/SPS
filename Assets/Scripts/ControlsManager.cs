@@ -10,14 +10,18 @@ public class ControlsManager : Singleton<ControlsManager>
     public event EventHandler OnJump;
     public event EventHandler OnInventory;
     public event EventHandler OnInteractOrWheel;
-    public event EventHandler OnScamWheelActivate;
+    public event EventHandler OnScamWheelActivate;      
     public event EventHandler OnScamWheelDisable;
-
+    public event EventHandler OnShopkeeperHold;
 
     private InputSystem_Actions playerInput;
     public InputSystem_Actions.PlayerActions playerActions;
 
     [SerializeField] private PlayerController playerController;
+
+
+    [HideInInspector] public bool shopInteractions = false; //when the player interacts with shopkeepers then holding interact key wont trigger scam wheel
+
     private void Awake()
     {
         playerInput = new InputSystem_Actions();
@@ -48,7 +52,10 @@ public class ControlsManager : Singleton<ControlsManager>
         }
         else if (obj.interaction is HoldInteraction)
         {
-            OnScamWheelActivate?.Invoke(this, EventArgs.Empty);
+            if (!shopInteractions)
+                OnScamWheelActivate?.Invoke(this, EventArgs.Empty);
+            else
+                OnShopkeeperHold?.Invoke(this, EventArgs.Empty);
         }
     }
 

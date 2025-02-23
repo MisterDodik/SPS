@@ -40,5 +40,7 @@ public class ScamWheel : Singleton<ScamWheel>
     public void pickScam(ScamType type)
     {
         selectedScam = type;
+        Player.Instance.updateSelectedItem(null, type.ToString());
+        InventorySystem.Instance.deselectItem();
     }
 }

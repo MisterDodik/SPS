@@ -17,6 +17,13 @@ public class InventorySystem : Singleton<InventorySystem>
     public GameObject itemPrefab;
 
     public Item cashIcon;
+
+    private InventorySlot selectedItem;
+    bool isSomethingSelected = false;
+
+    [SerializeField] private float clubScamChance = 40;     
+    [SerializeField] private float clubPriceMultiplier = 2.5f;
+
     private void Start()
     {
         Inventory = UIManager.Instance.GetUI<CanvasGameplay>().GetInventoryObject();
@@ -56,7 +63,6 @@ public class InventorySystem : Singleton<InventorySystem>
             InventorySlot slot = container[i];
             if (addedItems.Contains(slot))
             {
-            print((slot.item.name, i));
                 // Update existing item
                 Transform itemSlot = InventorySlots.GetChild(i);
                 UpdateItemSlotUI(itemSlot, slot, i);
@@ -67,7 +73,11 @@ public class InventorySystem : Singleton<InventorySystem>
                 GameObject item = Instantiate(itemPrefab, InventorySlots);
                 UpdateItemSlotUI(item.transform, slot, i);
                 addedItems.Add(slot);
+
+                ItemOnSelect itemScript = item.AddComponent<ItemOnSelect>();
+                itemScript.thisSlot = slot;
             }
+
         }
 
     }
@@ -80,7 +90,7 @@ public class InventorySystem : Singleton<InventorySystem>
 
     Vector2 GetItemPos(int index)
     {
-        return new Vector2(50, -50 * (index + 1));
+        return new Vector2(100, -50 * (index + 1));
     }
 
 
@@ -105,16 +115,31 @@ public class InventorySystem : Singleton<InventorySystem>
         }
     }
 
+    public void selectItem(InventorySlot currentItem)
+    {
+        isSomethingSelected=true;
+        ScamWheel.Instance.selectedScam = ScamType.Null;
 
-    public void SellCommonItems()
+        Player.Instance.updateSelectedItem(currentItem.item.sprite, currentItem.item.name);
+        selectedItem = currentItem;
+    }
+    public void deselectItem()
+    {
+        isSomethingSelected = false;
+        Player.Instance.updateSelectedItem(null, " ");
+        selectedItem = null;
+    }
+
+    public void SellAllItemsByType(bool sellValuables)
     {
         float total = 0;
         for(int i=0; i< addedItems.Count; i++)
         {
             InventorySlot slot = addedItems[i];
 
-            if (slot.item.isValuable)
-                continue;
+            if (!slot.item.isValuable == sellValuables)
+                continue;           
+
             int amount = slot.amount;
             float price = slot.item.basePrice;
             total += amount * price;
@@ -123,18 +148,58 @@ public class InventorySystem : Singleton<InventorySystem>
             container.Remove(slot);
         }
 
-        if (total == 0)        
+        if (total == 0)
+        {
+            print("No items were sold");
+            return;
+        }
+
+        showItems();            // updates inventory ui
+        Player.Instance.ChangeMoney(total);
+        ScamBase.Instance.showStolenItem(cashIcon, total);          //shows money icon in the bottom left corner
+
+        deselectItem();
+    }
+
+    public void SellValuables(bool sellAll)
+    {
+        if (!isSomethingSelected)
+            return;
+        float total = 0;    
+
+        bool isPlayerScammed = UnityEngine.Random.Range(0, 100) < clubScamChance ? true : false; 
+
+        float price = selectedItem.item.basePrice * clubPriceMultiplier;
+        int amount = selectedItem.amount;
+        if (sellAll)
+        {
+            total += amount * price;
+            selectedItem.amount = 0;
+            container.Remove(selectedItem);
+            deselectItem();
+        }
+        else
+        {
+            total += price;
+            amount--;
+            selectedItem.amount = amount;
+            if (selectedItem.amount == 0)
+            {
+                container.Remove(selectedItem);
+                deselectItem();
+            }
+        }
+        if(isPlayerScammed)
+        {
+            total = 0;
+            print("SCAMMED");
+        }
+        if (total == 0)
             return;
 
         showItems();            // updates inventory ui
         Player.Instance.ChangeMoney(total);
-        ScamBase.Instance.showStolenItem(cashIcon, total);      
-    }
-
-    public void SellValuables()
-    {
-        //we will see how this will work
-        print("Valuables sold");
+        ScamBase.Instance.showStolenItem(cashIcon, total);          //shows money icon in the bottom left corner
     }
 }
 

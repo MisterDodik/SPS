@@ -39,6 +39,7 @@ public class PlayerInteract : MonoBehaviour
 
             crosshairImage.color = Color.white;
             TextBubbleScript.instance.DestroyBubble();
+            ControlsManager.Instance.shopInteractions = false;
 
             //resetting the current scam event
             currentScam = ScamWheel.Instance.scam;
@@ -60,10 +61,15 @@ public class PlayerInteract : MonoBehaviour
     string GetText(string hitTag)
     {
         if(hitTag == "Shopman")
-            return "Press " + interactAction + " to sell all the common items.";
+        {
+            ControlsManager.Instance.shopInteractions = true;
+            return "Press " + interactAction + " to sell all common items.\n Hold " + interactAction + " to sell all valuables.";
+        }
         else if (hitTag == "ClubShopman")
-            return "Press " + interactAction + " to sell all the valuables.";
-
+        {
+            ControlsManager.Instance.shopInteractions = true;
+            return "Press " + interactAction + " to sell 1. \n Hold " + interactAction + " to sell all.";
+        }
         return "Press " + interactAction + " to interact.";
     }
 }
