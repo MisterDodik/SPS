@@ -13,7 +13,7 @@ public partial class CallPoliceAction : Action
 
     protected override Status OnStart()
     {
-        PoliceManager.Instance.SendPolice(Target);
+        PoliceManager.Instance.SendPolice(Target, Agent.Value.transform.position);
         return Status.Running;
     }
 

@@ -5644,6 +5644,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1389865428450940482, guid: b52ca7f8c4fcb3e4c8f4294ba10ce145, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 360
+      objectReference: {fileID: 0}
     - target: {fileID: 3012738962618274378, guid: b52ca7f8c4fcb3e4c8f4294ba10ce145, type: 3}
       propertyPath: m_Name
       value: Police

@@ -12,7 +12,7 @@ public class PoliceManager : Singleton<PoliceManager>
     {
         
     }
-    public void SendPolice(GameObject target, int numberOfCops = 1)
+    public void SendPolice(GameObject target, Vector3 position, int numberOfCops = 1)
     {
         policePrefabList[0].SetVariableValue<bool>("IsDispatched", true);
     }
