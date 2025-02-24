@@ -19,7 +19,6 @@ public partial class CheckTargetInFovCondition : Condition
 
         Vector3 agentPos = agentObj.transform.position;
         Vector3 targetPos = targetTransform.position;
-        Vector3 toTarget = (targetPos - agentPos).normalized;
         float distanceToTarget = Vector3.Distance(agentPos, targetPos);
 
         // 1. Check if the player is within the NPC's vision range
@@ -28,11 +27,13 @@ public partial class CheckTargetInFovCondition : Condition
             Debug.Log("Out Of Range");
             return isIn ? false : true;
         }
-
-        // 2. Check if the player is within the NPC's field of view angle
+        Vector3 flatAgentPos = new Vector3(agentPos.x, 0, agentPos.z);
+        Vector3 flatTargetPos = new Vector3(targetPos.x, 0, targetPos.z);
+        Vector3 toTargetFlat = (flatTargetPos - flatAgentPos).normalized;
         Vector3 agentForward = agentObj.transform.forward;
-        float angleToTarget = Vector3.Angle(agentForward, toTarget);
 
+        float angleToTarget = Vector3.Angle(new Vector3(agentForward.x, 0, agentForward.z), toTargetFlat);
+        // 2. Check if the player is within the NPC's field of view angle
         if (angleToTarget > FOV / 2)
         {
             Debug.Log("Out Of FOV");

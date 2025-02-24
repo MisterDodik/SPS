@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using Unity.Behavior;
 using UnityEngine;
 
 public class PoliceManager : Singleton<PoliceManager>
 {
-    [SerializeField] private BehaviorGraphAgent[] policePrefabArray;
+    [SerializeField] private List<BehaviorGraphAgent> policePrefabList = new List<BehaviorGraphAgent>();
     [SerializeField] private BehaviorGraphAgent policePrefab;
     [SerializeField] private Transform policeStation;
     private int noOfCurrentPatrolUnit = 0;
@@ -13,11 +14,11 @@ public class PoliceManager : Singleton<PoliceManager>
     }
     public void SendPolice(GameObject target, int numberOfCops = 1)
     {
-        policePrefabArray[0].SetVariableValue<bool>("IsDispatched", true);
+        policePrefabList[0].SetVariableValue<bool>("IsDispatched", true);
     }
     private void SpawnPolice()
     {
-        Instantiate(policePrefab, policeStation.position, Quaternion.identity);
+        policePrefabList.Add(Instantiate(policePrefab, policeStation.position, Quaternion.identity));
     }
     
 }
