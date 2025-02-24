@@ -17,8 +17,11 @@ public class CanvasGameplay : UICanvas
     [SerializeField] private GameObject InventoryContent;
 
     [SerializeField] private GameObject ScamWheel;
+    
+    
+    [SerializeField] private TextMeshProUGUI notificationText;
 
-
+    
     public Slider GetStaminaSlider()
     {
         return staminaSlider;
@@ -54,6 +57,10 @@ public class CanvasGameplay : UICanvas
         Inventory.SetActive(false);
     }
 
+    public TextMeshProUGUI getNotificationObject()
+    {
+        return notificationText;
+    }
     private void Player_OnMoneyChanged(object sender, Player.OnMoneyChangedEventArgs e)
     {
         moneyText.text = $"{e.money:N2}$";

@@ -164,7 +164,10 @@ public class InventorySystem : Singleton<InventorySystem>
     public void SellValuables(bool sellAll)
     {
         if (!isSomethingSelected)
+        {
+            NotifyPlayerText.Instance.NotifyPlayer(new Color(1, 0.2f, 0), new Color(1, 0, 0), "No item selected!", false);
             return;
+        }
         float total = 0;    
 
         bool isPlayerScammed = UnityEngine.Random.Range(0, 100) < clubScamChance ? true : false; 
@@ -192,7 +195,7 @@ public class InventorySystem : Singleton<InventorySystem>
         if(isPlayerScammed)
         {
             total = 0;
-            print("SCAMMED");
+            NotifyPlayerText.Instance.NotifyPlayer(new Color(1, 0.3f, 0), new Color(1, 0, 0), "You got scammed!", false);
         }
         if (total == 0)
             return;
