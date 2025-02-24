@@ -16,7 +16,7 @@ public class NotifyPlayerText : Singleton<NotifyPlayerText>
     //  colorA and colorB define blinking colors of the text, text is self-explanatory
     //  hasCustomEndTime should be set to false if we want the text to be automatically disabled after the blinking is done
     // otherwise, for example if we want to delete the text once the crosshair doesnt interact with anything, then it should be set to true, and the deletion should be handled manually
-    public void NotifyPlayer(Color colorA, Color colorB, string text, bool hasCustomEndTime)
+    public void NotifyPlayer(Color colorA, Color colorB, string text, bool hasCustomEndTime = false)
     {
         if (textObject.gameObject.activeSelf)
             DeleteMessage();

@@ -1187,6 +1187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   policePrefabArray:
   - {fileID: 813461913}
+  policePrefab: {fileID: 0}
   policeStation: {fileID: 1228057652}
 --- !u!4 &410921769
 Transform:
@@ -1941,8 +1942,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f585f68bb67bec4191317da6025a28b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedScam: 0
-  scam: {fileID: 0}
 --- !u!1 &700542925
 GameObject:
   m_ObjectHideFlags: 0
@@ -5477,6 +5476,10 @@ PrefabInstance:
     - target: {fileID: 3012738962618274378, guid: b52ca7f8c4fcb3e4c8f4294ba10ce145, type: 3}
       propertyPath: m_Name
       value: Police
+      objectReference: {fileID: 0}
+    - target: {fileID: 3012738962618274378, guid: b52ca7f8c4fcb3e4c8f4294ba10ce145, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3064335763894322737, guid: b52ca7f8c4fcb3e4c8f4294ba10ce145, type: 3}
       propertyPath: managedReferences[2256630427813937367].m_Value
